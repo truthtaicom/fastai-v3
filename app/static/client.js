@@ -34,18 +34,15 @@ function analyze() {
         const l = j.find(elm => elm[1] > 0.7)
         if(l) {
           el("result-label").innerHTML = `
-              Result = ${l[0]}
-              ${j.map(elm => `<p>${elm[0]}: ${elm[1]}</p>`)}
-          `;
+              <h2>Result = ${l[0]}</h2>
+              ${j.map(elm => `<p>${elm[0]}: ${elm[1]}</p>`)}`;
         } else {
           el("result-label").innerHTML = `
-              😂 I dont know this guy !
-              ${j.map(elm => `<p>${elm[0]}: ${elm[1]}</p>`)}
-          `;
+              <h2>😂 I dont know this guy !</h2>
+              ${j.map(elm => `<p>${elm[0]}: ${elm[1]}</p>`)}`;
         }
-        
       } catch(error) {
-        el("result-label").innerHTML = `😂 I dont know what happend !`;
+        el("result-label").innerHTML = `<h2>😂 I dont know what happend !</h2>`;
       }
       
     }
