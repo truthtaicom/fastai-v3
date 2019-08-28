@@ -29,7 +29,19 @@ function analyze() {
   xhr.onload = function(e) {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
-      el("result-label").innerHTML = `Result = ${response["result"]}`;
+      try {
+        j = parseJSON(response["result"]);
+        const l = Object.keys(j).find(e => j[e] > 0.7)
+        if(l) {
+          el("result-label").innerHTML = `Result = ${l}`;
+        } else {
+          el("result-label").innerHTML = `😂 I dont know this guy !`;
+        }
+        
+      } catch(error) {
+        el("result-label").innerHTML = `😂 I dont know what happend !`;
+      }
+      
     }
     el("analyze-button").innerHTML = "Analyze";
   };
