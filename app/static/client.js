@@ -30,7 +30,7 @@ function analyze() {
     if (this.readyState === 4) {
       var response = JSON.parse(e.target.responseText);
       try {
-        j = parseJSON(response["result"]);
+        j = response["result"];
         const l = Object.keys(j).find(e => j[e] > 0.7)
         if(l) {
           el("result-label").innerHTML = `Result = ${l}`;
