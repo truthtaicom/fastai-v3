@@ -48,6 +48,17 @@ tasks = [asyncio.ensure_future(setup_learner())]
 learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
 
+def predict(losses):
+  v = sorted(
+      zip(ds.classes, map(parsingNumber, losses)),
+      key=lambda p: p[1],
+      reverse=True
+  )
+  
+  return v
+
+def parsingNumber(v):
+  return round(float(v), 5)
 
 @app.route('/')
 async def homepage(request):
@@ -60,8 +71,8 @@ async def analyze(request):
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
     img = open_image(BytesIO(img_bytes))
-    prediction = learn.predict(img)[0]
-    return JSONResponse({'result': str(prediction)})
+    prediction, idx, losses = learn.predict(img)[0]
+    return JSONResponse({'result': str(predict(losses)})
 
 
 if __name__ == '__main__':
