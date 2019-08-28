@@ -50,7 +50,7 @@ loop.close()
 
 def predict(losses):
   v = sorted(
-      zip(ds.classes, map(parsingNumber, losses)),
+      zip(classes, map(parsingNumber, losses)),
       key=lambda p: p[1],
       reverse=True
   )
