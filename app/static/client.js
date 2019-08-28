@@ -31,11 +31,17 @@ function analyze() {
       var response = JSON.parse(e.target.responseText);
       try {
         j = response["result"];
-        const l = Object.keys(j).find(e => j[e] > 0.7)
+        const l = j.find(elm => elm[1] > 0.7)
         if(l) {
-          el("result-label").innerHTML = `Result = ${l}`;
+          el("result-label").innerHTML = `
+              Result = ${l[0]}
+              ${j.map(elm => `<p>${elm[0]}: ${elm[1]}</p>`)}
+          `;
         } else {
-          el("result-label").innerHTML = `😂 I dont know this guy !`;
+          el("result-label").innerHTML = `
+              😂 I dont know this guy !
+              ${j.map(elm => `<p>${elm[0]}: ${elm[1]}</p>`)}
+          `;
         }
         
       } catch(error) {
